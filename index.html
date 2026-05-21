@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>for someone i once loved</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+width:100%;
+min-height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+font-family:'Inter',sans-serif;
+background: #2e2d33;
+color:#F5ECE7;
+position:relative;
+}
+
+
+.page{
+position:absolute;
+width:100%;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+transition:1s ease;
+opacity:0;
+pointer-events:none;
+transform:translateY(20px);
+}
+
+.page.active{
+opacity:1;
+pointer-events:auto;
+transform:translateY(0);
+}
+
+.container{
+position: relative;
+z-index: 2;
+width: 100%;
+max-width: 700px;
+padding: 55px 45px;
+border-radius: 32px;
+background: linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));
+border:1px solid rgba(255,255,255,.06);
+backdrop-filter:blur(18px);
+box-shadow: 0 20px 70px rgba(0,0,0,.4);
+border: 5px solid rgba(75, 74, 74, 0.31);
+text-align: center;
+}
+
+.greeting{
+font-size:12px;
+letter-spacing:5px;
+text-transform:uppercase;
+color:#C7B7A3;
+margin-bottom:18px;
+}
+
+.title{
+font-family:'Cormorant Garamond',serif;
+font-size:clamp(3rem,5vw,5rem);
+line-height:1;
+font-weight:600;
+color:#FFF8F5;
+margin-bottom:40px;
+}
+
+.countdown{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:16px;
+margin-bottom:35px;
+}
+
+.time-box{
+padding:24px 12px;
+border-radius:24px;
+background:
+linear-gradient(
+to bottom,rgba(255,255,255,.06),rgba(255,255,255,.02));
+border:1px solid rgba(255,255,255,.05);
+}
+
+.number{
+font-size:2.7rem;
+font-weight:600;
+color:#FFF5F1;
+margin-bottom:8px;
+}
+
+.label{
+font-size:10px;
+letter-spacing:3px;
+text-transform:uppercase;
+color:#D4BEB6;
+}
+
+.next-btn{
+border:none;
+outline:none;
+padding:16px 42px;
+border-radius:999px;
+background:#E8D8C4;
+color:#2A1B1B;
+font-size:14px;
+font-weight:600;
+cursor:pointer;
+transition:.4s ease;
+}
+
+.next-btn:hover{
+transform:translateY(-3px);
+box-shadow:0 12px 30px rgba(232,216,196,.18);
+}
+
+.second-page-text{
+font-family:'Cormorant Garamond',serif;
+font-size:clamp(2.5rem,5vw,4rem);
+line-height:1.2;
+color:#FFF8F5;
+}
+
+/* =========================
+   PAGE 2
+========================= */
+
+.chat-container{
+width:100%;
+max-width:430px;
+height:820px;
+background:#111111;
+border-radius:42px;
+overflow:hidden;
+position:relative;
+border:1px solid rgba(255,255,255,.06);
+box-shadow:
+0 30px 80px rgba(0,0,0,.45);
+display:flex;
+flex-direction:column;
+}
+
+.chat-header{
+width:100%;
+padding:18px 18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:
+linear-gradient(
+to bottom, rgba(255,255,255,.06), rgba(255,255,255,.03));
+border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.header-left{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.profile-picture{
+width:46px;
+height:46px;
+border-radius:50%;
+background:url("profile.jpg");
+background-size:cover;
+background-position:center;
+}
+
+.profile-info h3{
+font-size:15px;
+font-weight:600;
+color:#FFF;
+}
+
+.profile-info span{
+font-size:11px;
+color:#B8B8B8;
+}
+
+.header-right{
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+.icon-btn{
+width:34px;
+height:34px;
+border:none;
+outline:none;
+border-radius:50%;
+background:rgba(255,255,255,.05);
+color:#FFF;
+cursor:pointer;
+}
+
+.chat-body{
+flex:1;
+overflow-y:auto;
+padding:22px 16px 30px;
+display:flex;
+flex-direction:column;
+gap:16px;
+background:
+linear-gradient(180deg,#181214,#120D10);
+}
+
+.message{
+max-width:78%;
+display:flex;
+flex-direction:column;
+opacity:0;
+transform:translateX(-30px);
+animation:showMessage .8s forwards;
+}
+
+@keyframes showMessage{
+to{
+opacity:1;
+transform:translateX(0);
+}
+}
+
+.delay1{animation-delay:1.5s;}
+.delay2{animation-delay:3.5s;}
+.delay3{animation-delay:5s;}
+.delay4{animation-delay:6.5s;}
+.delay5{animation-delay:8s;}
+.delay6{animation-delay:9.5s;}
+.delay7{animation-delay:11s;}
+.delay8{animation-delay:12.5s;}
+.delay9{animation-delay:14s;}
+
+.received{
+align-self:flex-start;
+}
+
+.message img{
+width:100%;
+border-radius:20px;
+margin-bottom: 5px;
+object-fit:cover;
+border:1px solid rgba(255,255,255,.05);
+}
+
+.time{
+font-size:10px;
+color:#9B9B9B;
+margin-bottom:6px;
+padding-left:4px;
+}
+
+.text-message{
+background:
+linear-gradient(
+180deg,rgba(255,255,255,.08),rgba(255,255,255,.03));
+padding:16px 18px;
+border-radius:22px;
+}
+
+.text-message p{
+font-size:14px;
+line-height:1.7;
+color:#F3E7E0;
+margin-bottom:10px;
+}
+
+.chat-footer{
+padding:16px;
+border-top:1px solid rgba(255,255,255,.05);
+background:#111111;
+}
+
+.next-page-btn{
+width:100%;
+padding:15px;
+border:none;
+outline:none;
+border-radius:999px;
+background:#E8D8C4;
+color:#2A1B1B;
+font-size:14px;
+font-weight:600;
+cursor:pointer;
+transition:.4s ease;
+}
+
+.next-page-btn:hover{
+transform:translateY(-2px);
+box-shadow:
+0 10px 30px rgba(232,216,196,.15);
+}
+
+.final-card{
+width:100%;
+max-width:780px;
+padding:50px 40px;
+border-radius:34px;
+background: linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));
+border:1px solid rgba(255,255,255,.06);
+backdrop-filter:blur(18px);
+box-shadow: 0 20px 70px rgba(0,0,0,.4);
+display:flex;
+flex-direction:column;
+gap:40px;
+overflow-y:auto;
+max-height:90vh;
+}
+
+.typing-container{
+width:100%;
+}
+
+.typing-text{
+font-size:16px;
+line-height:2;
+color:#F3E7E0;
+text-align:left;
+white-space:pre-line;
+border-right:2px solid rgba(255,255,255,.5);
+width:fit-content;
+animation:blinkCursor .8s infinite;
+}
+
+@keyframes blinkCursor{
+0% {border-color:transparent;}
+50% {border-color:rgba(255,255,255,.6);}
+100% {border-color:transparent;}
+}
+
+.polaroid-wrapper{
+
+display:flex;
+justify-content:center;
+}
+
+.polaroid{
+width:100%;
+max-width:340px;
+background:#F5EFEA;
+padding:14px 14px 24px;
+border-radius:6px;
+box-shadow: 0 15px 40px rgba(0,0,0,.3);
+transform:rotate(-2deg);
+transition:.4s ease;
+}
+
+.polaroid:hover{
+transform:
+rotate(0deg)
+scale(1.02);
+}
+
+.polaroid img{
+width:100%;
+height:380px;
+object-fit:cover;
+border-radius:2px;
+margin-bottom:18px;
+}
+
+.polaroid-caption{
+font-family:'Cormorant Garamond',serif;
+font-size:20px;
+line-height:1.7;
+color:#2A1B1B;
+text-align:left;
+padding:0 4px;
+}
+
+.chat-container{
+height:100vh;
+border-radius:0;
+}
+
+.chat-body{
+padding:18px 12px 25px;
+}
+
+.message{
+max-width:85%;
+}
+
+
+@media(max-width:768px){
+
+.container{
+padding:42px 24px;
+border-radius:28px;
+}
+
+.number{
+font-size:2.2rem;
+}
+
+body{
+padding:16px;
+}
+
+.page{
+padding:16px;
+}
+
+.container{
+padding:35px 18px;
+border-radius:24px;
+}
+
+.greeting{
+font-size:10px;
+letter-spacing:3px;
+}
+
+.title{
+margin-bottom:30px;
+}
+
+.countdown{
+gap:12px;
+}
+
+.time-box{
+padding:20px 10px;
+border-radius:20px;
+}
+
+.number{
+font-size:1.9rem;
+}
+
+.label{
+font-size:9px;
+}
+
+.next-btn{
+width:100%;
+padding:15px;
+}
+
+.chat-container{
+max-width:100%;
+height:92vh;
+border-radius:30px;
+}
+
+.final-card{
+padding:35px 22px;
+border-radius:28px;
+gap:30px;
+}
+
+.typing-text{
+font-size:15px;
+line-height:1.9;
+}
+
+.polaroid{
+max-width:100%;
+}
+
+.polaroid img{
+height:320px;
+}
+
+.polaroid-caption{
+font-size:18px;
+}
+
+.final-card{
+padding:28px 16px;
+border-radius:24px;
+}
+
+.typing-text{
+font-size:14px;
+}
+
+.polaroid img{
+height:280px;
+}
+
+.polaroid-caption{
+font-size:17px;
+line-height:1.6;
+}
+}
+
+@media(max-width:480px){
+
+body{
+padding:16px;
+overflow-x:hidden;
+}
+
+.page{
+padding:16px;
+}
+
+.container{
+padding:35px 18px;
+border-radius:24px;
+}
+
+.greeting{
+font-size:10px;
+letter-spacing:3px;
+}
+
+.countdown{
+gap:12px;
+}
+
+.time-box{
+padding:20px 10px;
+border-radius:20px;
+}
+
+.number{
+font-size:1.9rem;
+}
+
+.label{
+font-size:9px;
+}
+
+.next-btn{
+width:100%;
+padding:15px;
+}
+
+.chat-container{
+height:100vh;
+border-radius:0;
+}
+
+.final-card{
+padding:28px 16px;
+border-radius:24px;
+}
+
+.typing-text{
+font-size:14px;
+line-height:1.8;
+}
+
+.polaroid img{
+height:280px;
+}
+
+.polaroid-caption{
+font-size:17px;
+line-height:1.6;
+}
+
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media(max-width:390px){
+
+.container{
+padding:28px 14px;
+}
+
+.title{
+font-size:2.4rem;
+}
+
+.time-box{
+padding:15px 6px;
+}
+
+.number{
+font-size:1.7rem;
+}
+
+.chat-body{
+padding:14px 10px 20px;
+}
+
+.message{
+max-width:92%;
+}
+
+.final-card{
+padding:22px 14px;
+gap:24px;
+}
+
+.typing-text{
+font-size:13px;
+line-height:1.7;
+}
+
+.polaroid{
+padding:10px 10px 18px;
+}
+
+.polaroid img{
+height:240px;
+}
+
+.polaroid-caption{
+font-size:15px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop>
+<source src="music.mp3" type="audio/mp3">
+</audio>
+
+<!-- PAGE 1 -->
+
+<section class="page active" id="page1">
+
+<div class="container">
+    <p class="greeting">
+        For someone i once loved
+    </p>
+
+    <h1 class="title">
+        we've known<br>
+        each other for...
+    </h1>
+
+    <div class="countdown">
+        <div class="time-box">
+            <div class="number" id="days">0</div>
+            <div class="label">Days</div>
+        </div>
+
+        <div class="time-box">
+            <div class="number" id="hours">0</div>
+            <div class="label">Hours</div>
+        </div>
+
+        <div class="time-box">
+            <div class="number" id="minutes">0</div>
+            <div class="label">Minutes</div>
+        </div>
+
+        <div class="time-box">
+            <div class="number" id="seconds">0</div>
+            <div class="label">Seconds</div>
+        </div>
+    </div>
+
+    <button class="next-btn" id="continueBtn">
+        continue
+    </button>
+</div>
+</section>
+
+<!-- PAGE 2 -->
+
+<section class="page" id="page2">
+
+<div class="chat-container">
+
+    <!-- TOP BAR -->
+    <div class="chat-header">
+        <div class="header-left">
+            <div class="profile-picture"></div>
+            <div class="profile-info">
+                <h3>your person</h3>
+                <span>last seen recently</span>
+            </div>
+
+        </div>
+
+        <div class="header-right">
+            <button class="icon-btn">
+                <i class="fa-solid fa-phone"></i>
+            </button>
+
+            <button class="icon-btn">
+                <i class="fa-solid fa-video"></i>
+            </button>
+
+            <button class="icon-btn">
+                <i class="fa-solid fa-ellipsis"></i>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- CHAT BODY -->
+
+    <div class="chat-body" id="chatBody">
+
+        <div class="message received text-message delay1">
+            <p>aku kangen kamu farel, kangen kamu yg dulu, kangen kita, kangen kita yg dulu☹️ aku gatau kalo endingnya bakal kaya gini, jujur sakit bgtt.. farel, aku gapernah nyesel ketemu kamu, 
+                aku gapernah nyesel kasi cinta aku ke kamu, yg aku sesali tu kenapa aku harus berharap besar ke kamu kalo endingnya kaya gini :( 
+               aku sakit bgtt dimana aku kenal cinta lagi bahkan km yg kenalin lg tp km yg acuhin gitu aja, dengan alasan kamu blm siap lah ini itu anything😀😃  
+            </p>
+            <span class="time">01:12 AM</span>
+        </div>
+
+        <div class="message received text-message delay2">
+            <p>kaya sakit aja pas kamu bilang “aku ga ngarepin km apa apa, jd km jangan harapin aku apapun” tp km yg buat harapan itu farel :) aku juga pengen di sayang farel.. 
+            aku seneng ternyata kamu ngerasa di sayang sama aku hihi.. tp aku juga mau, cuma yauda la, impossible wkwk.  
+            </p>
+            <span class="time">01:14 AM</span>
+        </div>
+
+        <div class="message received delay3">
+            <img src="1.jpg">
+            <span class="time">01:14 AM</span>
+        </div>
+
+        <div class="message received delay4">
+            <img src="2.jpg">
+            <span class="time">01:14 AM</span>
+        </div>
+
+        <div class="message received delay5">
+            <img src="3.jpg">
+            <span class="time">01:14 AM</span>
+        </div>
+
+        <div class="message received delay6">
+            <img src="4.jpg">
+            <span class="time">01:14 AM</span>
+        </div>
+
+        <div class="message received delay7">
+            <img src="5.jpg">
+            <span class="time">01:14 AM</span>
+        </div>
+
+        <div class="message received delay8">
+            <img src="6.jpg">
+            <span class="time">01:14 AM</span>
+        </div>
+
+        <div class="message received text-message delay9">
+            <p>sakit bgt baca itu semua, sakit. kalo tau taunya kita kaya gini huhu, dimana kita yg sama sama takut kehilangan😀</p>
+            <span class="time">01:15 AM</span>
+        </div>
+
+    </div>
+  
+    <div class="chat-footer">
+        <button class="next-page-btn" id="toPage3">
+            continue
+        </button>
+
+    </div>
+
+</div>
+</section>
+
+<!-- PAGE 3 -->
+
+<section class="page" id="page3">
+
+<div class="final-card">
+    <div class="polaroid-wrapper">
+        <div class="polaroid">
+            <img src="last-photo.jpg" alt="memory">
+            <div class="polaroid-caption">
+              masi jadi foto terfavorite aku kok, be happy yaa?? aku minta maaf uda banyak nyakitin kamu juga. 
+              thanks for everything farel, i love u more than anything❤️
+            </div>
+        </div>
+    </div>
+</div>
+
+</section>
+
+
+<script>
+
+const startDate = new Date("2026-02-28T00:00:00");
+function updateCountdown() {
+
+  const now = new Date();
+  const difference = now - startDate;
+  const days = Math.floor(
+    difference / (1000 * 60 * 60 * 24)
+  );
+
+  const hours = Math.floor(
+    (difference % (1000 * 60 * 60 * 24))
+    / (1000 * 60 * 60)
+  );
+
+  const minutes = Math.floor(
+    (difference % (1000 * 60 * 60))
+    / (1000 * 60)
+  );
+
+  const seconds = Math.floor(
+    (difference % (1000 * 60))
+    / 1000
+  );
+
+  document.getElementById("days").innerText = days;
+  document.getElementById("hours").innerText = hours;
+  document.getElementById("minutes").innerText = minutes;
+  document.getElementById("seconds").innerText = seconds;
+
+}
+
+setInterval(updateCountdown, 1000);
+
+updateCountdown();
+
+const pages = document.querySelectorAll(".page");
+
+function showPage(pageId) {
+
+  pages.forEach(page => {
+    page.classList.remove("active");
+  });
+
+  document
+    .getElementById(pageId)
+    .classList.add("active");
+
+}
+
+const continueBtn = document.getElementById("continueBtn");
+const bgMusic = document.getElementById("bgMusic");
+continueBtn.addEventListener("click", () => {
+
+  bgMusic.play();
+  showPage("page2");
+
+})
+
+const toPage3 = document.getElementById("toPage3");
+toPage3.addEventListener("click", () => {
+
+  showPage("page3");
+
+  typingText.innerHTML = "";
+
+  charIndex = 0;
+
+  setTimeout(() => {
+    startTyping();
+  }, 500);
+
+});
+
+</script>
+
+</body>
+</html>
